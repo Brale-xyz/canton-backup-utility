@@ -1,0 +1,19 @@
+[general]
+backup_file = "$stage-$network-users.json"
+base_url = "https://participant.$network.$stage.yourorg.xyz/v1"
+auth_url = "https://keycloak.$network.$stage.yourorg.xyz/auth/realms/catalyst-canton/protocol/openid-connect/token"
+
+[networks]
+
+[networks.devnet]
+stage = "dev"
+client_id = "devnet"
+base_url = "https://participant.$network.$stage.yourorg.dev/v1"
+
+[networks.testnet]
+stage = "sandbox"
+client_id = "testnet"
+
+[networks.mainnet]
+stage = "prod"
+client_id = "mainnet"

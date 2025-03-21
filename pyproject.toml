@@ -1,0 +1,23 @@
+[project]
+name = "canton-backup-utility"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Christopher Knutson",email = "1635851+Canuteson@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "requests (>=2.32.3,<3.0.0)",
+    "simplejson (>=3.20.1,<4.0.0)",
+    "munch (>=4.0.0,<5.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)"
+]
+
+[tool.poetry]
+packages = [{include = "utility", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
