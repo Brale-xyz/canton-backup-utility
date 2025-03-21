@@ -17,7 +17,7 @@ class UtilityConfig:
         self._config = munchify({**cfg["general"], **network_cfg}, DefaultMunch)
         self._base_url = os.getenv("BASE_URL")
         self._auth_url = os.getenv("AUTH_URL")
-        self._client_id = os.getenv("CLIENT_ID") or cfg.client_id
+        self._client_id = os.getenv("CLIENT_ID") or self._config.client_id
         self._client_secret = os.getenv("CLIENT_SECRET")
         self._log_level = os.getenv("LOG_LEVEL")
 
