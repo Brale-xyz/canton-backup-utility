@@ -6,6 +6,9 @@ on:
 permissions:
   contents: read
 
+env:
+  IMAGE_NAME: canton-backup-utility
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,24 +17,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v4
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Define Virtual Environment Cache
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-      - name: Install Dependencies
-        run: poetry install
-      - name: Lint
-        run: make lint
-      - name: Test
-        run: make test
+          
+      - name: Docker Build
+        run: docker build -t ${{ env.IMAGE_NAME }} .
+
+      - name: lint
+        run: docker run --entrypoint /usr/local/bin/poetry ${{ env.IMAGE_NAME }} run pylint src
+
+      - name: Run App tests
+        run: docker run --entrypoint /usr/local/bin/poetry ${{ env.IMAGE_NAME }} run pytest tests
